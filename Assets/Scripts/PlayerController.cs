@@ -2,27 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
 
-    public GameObject mokey;
-    public GameObject char1;
-    public GameObject char2;
-    public Transform trans1;
-    public Transform trans2;
-    public Transform trans3;
+
+public class PlayerController : MonoBehaviour
+{
+
+    //test camera types:
+    public int camTypeNumber = 0;
+    public GameObject[] camType;
 
     public float playerSpeed;
 
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(playerSpeed, 0, 0);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Translate(playerSpeed *-1, 0, 0);
+            transform.Translate(playerSpeed * -1, 0, 0);
         }
         if (Input.GetKey(KeyCode.W))
         {
@@ -32,6 +33,21 @@ public class PlayerController : MonoBehaviour {
         {
             transform.Translate(0, playerSpeed * -1, 0);
         }
-       
+
+
+        //Switch between the cameras being used.
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            camType[camTypeNumber].SetActive(false);
+            if (camTypeNumber == 1)
+            {
+                camTypeNumber = 0;
+            }
+            else
+            {
+                camTypeNumber = 1;
+            }
+            camType[camTypeNumber].SetActive(true);
+        }
     }
 }
