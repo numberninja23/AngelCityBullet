@@ -9,7 +9,6 @@ public class CameraScript : MonoBehaviour {
     public Transform targetPoint;
     public float speed;
 
-	// Update is called once per frame
 	void Update () {
         float dist = Vector3.Distance(targetPoint.position, transform.position) + speed;
         float step = dist * Time.deltaTime;

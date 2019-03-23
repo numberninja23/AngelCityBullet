@@ -12,16 +12,16 @@ public class EnemyScript : MonoBehaviour
     public GameObject healthItem;
 
 
-    // Use this for initialization
     void Start()
     {
         moveDirection = Random.Range(0, 3);
-        StartCoroutine(Begin());
+        StartCoroutine(ChangeDirection());
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+        //Check what direction to move in and go that way.
         if (moveDirection == 0)
         {
             transform.Translate(-speed, 0, 0);
@@ -39,6 +39,8 @@ public class EnemyScript : MonoBehaviour
             transform.Translate(0, -speed, 0);
         }
 
+
+        //Die and drop a health item.
         if(hp <= 0)
         {
             var HPItem = (GameObject)Instantiate(
@@ -50,7 +52,8 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    //Get hurt by player bullets.
+    void OnTriggerEnter(Collider other)
     {     
         if (other.gameObject.CompareTag("PlayerBullet"))
         {
@@ -63,10 +66,11 @@ public class EnemyScript : MonoBehaviour
         }      
     }
 
-    IEnumerator Begin()
+    //Randomly change the direction this enemy is moving in.
+    IEnumerator ChangeDirection()
     {
         yield return new WaitForSeconds(0.5f);
         moveDirection = Random.Range(0, 4);
-        StartCoroutine(Begin());
+        StartCoroutine(ChangeDirection());
     }
 }

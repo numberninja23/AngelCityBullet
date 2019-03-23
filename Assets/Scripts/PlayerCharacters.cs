@@ -18,9 +18,6 @@ public class PlayerCharacters : MonoBehaviour
 {
 
     // The target that this character is moving toward in the formation.
-
-  
-    
         [SerializeField] myArray[] target;
     
         // Speed in units per sec.
@@ -38,10 +35,11 @@ public class PlayerCharacters : MonoBehaviour
         public Animator anim;
 
         public Text HPText;
-        //remove this variable after you add good UI
-        //{
-        public string characterNumber;
-        //}
+
+    //((((REMOVE THIS VARIABLE AFTER YOU ADD A GOOD UI))))
+    public string characterNumber;
+
+
 
     //player01 is what the object compares its rotation to in order to rotate the sprites.
     public GameObject player01;
@@ -50,14 +48,14 @@ public class PlayerCharacters : MonoBehaviour
 
 
 
-    //Tell the character to exit the shooting pose.
+    //Tell the character to exit the shooting pose after shooting.
     private IEnumerator ShootStopper()
         {
             yield return new WaitForSeconds(1);
             shooting = "";
         }
 
-        //rapid shoot at a set interval.
+        //rapid shoot at a set interval of time.
         private IEnumerator ShootRapid()
         {
             if (health > 0)
@@ -77,13 +75,14 @@ public class PlayerCharacters : MonoBehaviour
         float dist = Vector3.Distance(target[formationType].array[formationSpot].position, transform.position);
             float step = dist * 7 * Time.deltaTime;
 
-            // Plays the desired animation.
+            // Sets the sprite/animation of the character to what it should be according to all the neccessary variables.
 
             if (!this.anim.GetCurrentAnimatorStateInfo(0).IsName(characterName + direction + walking + shooting))
             {
                 anim.Play(characterName + direction + walking + shooting);
             }
 
+            //Check how much HP the guy has and if they're dead, make them act dead.
             if (health <= 0)
             {
                 health = 0;
@@ -93,44 +92,44 @@ public class PlayerCharacters : MonoBehaviour
             }
             else
             {
-                // Checks the direction.
+                // Checks the direction the character is facing and sets what direction the sprites need to face respectively.
 
-                if (player01.transform.rotation.eulerAngles.z > 22.5 && player01.transform.rotation.eulerAngles.z < 67.5)
-                {
-                    direction = "SouthEast";
-                }
-
-                if (player01.transform.rotation.eulerAngles.z > 67.5 && player01.transform.rotation.eulerAngles.z < 112.5)
-                {
-                    direction = "East";
-                }
-
-                if (player01.transform.rotation.eulerAngles.z > 112.5 && player01.transform.rotation.eulerAngles.z < 157.5)
-                {
-                    direction = "NorthEast";
-                }
-
-                if (player01.transform.rotation.eulerAngles.z > 157.5 && player01.transform.rotation.eulerAngles.z < 202.5)
-                {
-                    direction = "North";
-                }
-
-                if (player01.transform.rotation.eulerAngles.z > 202.5 && player01.transform.rotation.eulerAngles.z < 247.5)
-                {
-                    direction = "NorthWest";
-                }
-
-                if (player01.transform.rotation.eulerAngles.z > 247.5 && player01.transform.rotation.eulerAngles.z < 292.5)
-                {
-                    direction = "West";
-                }
-
-                if (player01.transform.rotation.eulerAngles.z > 292.5 && player01.transform.rotation.eulerAngles.z < 337.5)
+                if (player01.transform.rotation.eulerAngles.y > 22.5 && player01.transform.rotation.eulerAngles.y < 67.5)
                 {
                     direction = "SouthWest";
                 }
 
-                if (this.transform.rotation.eulerAngles.z > 337.5 && player01.transform.rotation.eulerAngles.z < 360 || player01.transform.rotation.eulerAngles.z > 0 && player01.transform.rotation.eulerAngles.z < 22.5)
+                if (player01.transform.rotation.eulerAngles.y > 67.5 && player01.transform.rotation.eulerAngles.y < 112.5)
+                {
+                    direction = "West";
+                }
+
+                if (player01.transform.rotation.eulerAngles.y > 112.5 && player01.transform.rotation.eulerAngles.y < 157.5)
+                {
+                    direction = "NorthWest";
+                }
+
+                if (player01.transform.rotation.eulerAngles.y > 157.5 && player01.transform.rotation.eulerAngles.y < 202.5)
+                {
+                    direction = "North";
+                }
+
+                if (player01.transform.rotation.eulerAngles.y > 202.5 && player01.transform.rotation.eulerAngles.y < 247.5)
+                {
+                    direction = "NorthEast";
+                }
+
+                if (player01.transform.rotation.eulerAngles.y > 247.5 && player01.transform.rotation.eulerAngles.y < 292.5)
+                {
+                    direction = "East";
+                }
+
+                if (player01.transform.rotation.eulerAngles.y > 292.5 && player01.transform.rotation.eulerAngles.y < 337.5)
+                {
+                    direction = "SouthEast";
+                }
+
+                if (this.transform.rotation.eulerAngles.y > 337.5 && player01.transform.rotation.eulerAngles.y < 360 || player01.transform.rotation.eulerAngles.y > 0 && player01.transform.rotation.eulerAngles.y < 22.5)
                 {
                     direction = "South";
                 }
@@ -175,6 +174,7 @@ public class PlayerCharacters : MonoBehaviour
                 }
             }
 
+            //Change the formation type.
             if (Input.GetKeyDown(KeyCode.O))
             {
                 if (formationType == 0)
@@ -186,6 +186,7 @@ public class PlayerCharacters : MonoBehaviour
                     formationType -= 1;
                 }
             }
+          
             // Move our position a step closer to the target, which is the point the character wants to be at within the formation.
             transform.position = Vector3.MoveTowards(transform.position, target[formationType].array[formationSpot].position, step);
         }
@@ -195,24 +196,25 @@ public class PlayerCharacters : MonoBehaviour
         void Fire()
         {
             StopCoroutine("ShootStopper");
-            // Create the Bullet from the Bullet Prefab
+            // Create the Bullet from the Bullet Prefab.
             var bullet = (GameObject)Instantiate(
                 bulletPrefab,
                 this.transform.position,
                 this.transform.rotation);
 
-            // Add velocity to the bullet
-            bullet.GetComponent<Rigidbody2D>().velocity = player01.transform.up * -15;
+            // Add velocity to the bullet this character just created.
+            bullet.GetComponent<Rigidbody>().velocity = player01.transform.up * -15;
 
-            // Destroy the bullet after 1 second
+            // Destroy that bullet after 1 second.
             Destroy(bullet, 0.5f);
             StartCoroutine("ShootStopper");
         }
 
 
 
-        void OnTriggerEnter2D(Collider2D other)
+        void OnTriggerEnter(Collider other)
         {
+        //Get hurt by an enemy.
             if (other.gameObject.CompareTag("Enemy"))
             {
                 health = health - 1;
@@ -221,9 +223,10 @@ public class PlayerCharacters : MonoBehaviour
                this.transform.position,
                this.transform.rotation);
         }
+            //This is for passing through some collision types. ((((UNFINISHED. GET TO WORK ON THIS LATER.))))
             if (other.gameObject.tag == "theObjectToIgnore")
             {
-                Physics2D.IgnoreCollision(other.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>());
             }
             if (other.gameObject.CompareTag("HPItem"))
             {
