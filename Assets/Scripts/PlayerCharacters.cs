@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 
 //This little bit here is how we make 2D arrays in unity that are visible in the inspector.
@@ -32,17 +33,15 @@ public class PlayerCharacters : MonoBehaviour
         private string shooting = "";
         private string walking = "";
 
-        public Animator anim;
-
         public Text HPText;
 
-    //((((REMOVE THIS VARIABLE AFTER YOU ADD A GOOD UI))))
-    public string characterNumber;
+        public Animator anim;
 
+        //((((REMOVE THIS VARIABLE AFTER YOU ADD A GOOD UI))))
+        public string characterNumber;
 
-
-    //player01 is what the object compares its rotation to in order to rotate the sprites.
-    public GameObject player01;
+        //player01 is what the object compares its rotation to in order to rotate the sprites.
+        public GameObject player01;
         public GameObject bulletPrefab;
         public GameObject damageParticle;
 
@@ -72,8 +71,6 @@ public class PlayerCharacters : MonoBehaviour
         HPText.text = characterNumber + "HP: " + health;
 
         // The step size is equal to speed times frame time.
-        float dist = Vector3.Distance(target[formationType].array[formationSpot].position, transform.position);
-            float step = dist * 7 * Time.deltaTime;
 
             // Sets the sprite/animation of the character to what it should be according to all the neccessary variables.
 
@@ -185,15 +182,14 @@ public class PlayerCharacters : MonoBehaviour
                 {
                     formationType -= 1;
                 }
-            }
-          
-            // Move our position a step closer to the target, which is the point the character wants to be at within the formation.
-            transform.position = Vector3.MoveTowards(transform.position, target[formationType].array[formationSpot].position, step);
-        }
+            }   
+            
+
+    }
 
 
 
-        void Fire()
+    void Fire()
         {
             StopCoroutine("ShootStopper");
             // Create the Bullet from the Bullet Prefab.

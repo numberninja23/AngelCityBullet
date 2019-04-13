@@ -17,22 +17,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(playerSpeed, 0, 0);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(playerSpeed * -1, 0, 0);
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(0, playerSpeed, 0);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(0, playerSpeed * -1, 0);
-        }
+        //Move character
+        transform.Translate(playerSpeed * Input.GetAxis("Horizontal") * Time.deltaTime, 0f, playerSpeed * Input.GetAxis("Vertical") * Time.deltaTime);
 
 
         //Switch between the cameras being used.
