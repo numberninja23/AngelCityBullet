@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4141986632714434}
-  - component: {fileID: 114161458695905980}
   m_Layer: 0
   m_Name: ArrowCenter
   m_TagString: Untagged
@@ -115,16 +114,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1294369372252950}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3089707, y: 0.2023263, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4373112444029924}
   - {fileID: 4007290004593144}
   - {fileID: 4141986632714434}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4118352145712360
 Transform:
   m_ObjectHideFlags: 1
@@ -293,17 +292,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114161458695905980
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1050878154109350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ff6042fc9b8026428b5350ee44695ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114483232335406552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,13 +316,10 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-  speed: 0
+  speed: 5
   health: 10
   formationSpot: 0
   formationType: 0
-  agent: {fileID: 0}
-  realTarget: {fileID: 0}
-  yoshiTime: {x: 0, y: 0, z: 0}
   HPText: {fileID: 0}
   anim: {fileID: 95421472755220724}
   characterNumber: 0
@@ -343,6 +328,7 @@ MonoBehaviour:
     type: 2}
   damageParticle: {fileID: 1541824851885254, guid: 4d119ed7c56fe9847aaa6ba7de29a861,
     type: 2}
+  arrow: {fileID: 1050878154109350}
 --- !u!135 &135221290924121066
 SphereCollider:
   m_ObjectHideFlags: 1

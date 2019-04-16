@@ -44,7 +44,7 @@ public class PlayerCharacters : MonoBehaviour
         public GameObject player01;
         public GameObject bulletPrefab;
         public GameObject damageParticle;
-
+        public GameObject arrow;
 
 
     //Tell the character to exit the shooting pose after shooting.
@@ -182,10 +182,13 @@ public class PlayerCharacters : MonoBehaviour
                 {
                     formationType -= 1;
                 }
-            }   
-            
+            }
 
-    }
+            //Moves the character to their position in the character formation.
+            transform.position = Vector3.MoveTowards(transform.position, target[formationType].array[formationSpot].position, 0.5f);
+
+            arrow.transform.rotation = Quaternion.Euler(90, 0, player01.transform.eulerAngles.y * -1);
+        }
 
 
 
