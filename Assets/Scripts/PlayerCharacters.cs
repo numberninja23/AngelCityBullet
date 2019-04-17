@@ -202,10 +202,11 @@ public class PlayerCharacters : MonoBehaviour
                 this.transform.rotation);
 
             // Add velocity to the bullet this character just created.
-            bullet.GetComponent<Rigidbody>().velocity = player01.transform.up * -15;
+            bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * -15;
+            bullet.transform.parent = this.transform;
 
-            // Destroy that bullet after 1 second.
-            Destroy(bullet, 0.5f);
+        // Destroy that bullet after 1 second.
+        Destroy(bullet, 0.5f);
             StartCoroutine("ShootStopper");
         }
 
