@@ -20,9 +20,12 @@ public class PlayerCharacters : MonoBehaviour
 
     // The target that this character is moving toward in the formation.
         [SerializeField] myArray[] target;
-    
+
+        Vector3 lastPos;
+
         // Speed in units per sec.
         public float speed;
+        public float shootSpeed;
         public float health = 10;
 
         public int formationSpot = 0;
@@ -131,16 +134,21 @@ public class PlayerCharacters : MonoBehaviour
                     direction = "South";
                 }
 
-                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.L))
+
+                Vector3 curPos = this.transform.position;
+                if (curPos != lastPos)
                 {
-                    walking = "W";
+                walking = "W";
+                print("walk");
                 }
                 else
                 {
                     walking = "";
+                //print("no walk");
                 }
+                lastPos = curPos;
 
-                if (Input.GetKeyDown(KeyCode.K) && (health > 0))
+            if (Input.GetKeyDown(KeyCode.K) && (health > 0))
                 {
                     shooting = "S";
                     StartCoroutine("ShootRapid");
@@ -184,10 +192,12 @@ public class PlayerCharacters : MonoBehaviour
                 }
             }
 
-            //Moves the character to their position in the character formation.
-            transform.position = Vector3.MoveTowards(transform.position, target[formationType].array[formationSpot].position, 0.5f);
+        //Moves the character to their position in the character formation.
+        transform.position = Vector3.MoveTowards(transform.position, target[formationType].array[formationSpot].position, 0.5f);
 
-            arrow.transform.rotation = Quaternion.Euler(90, 0, player01.transform.eulerAngles.y * -1);
+
+
+        arrow.transform.rotation = Quaternion.Euler(90, 0, player01.transform.eulerAngles.y * -1);
         }
 
 
@@ -202,8 +212,8 @@ public class PlayerCharacters : MonoBehaviour
                 this.transform.rotation);
 
             // Add velocity to the bullet this character just created.
-            bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * -15;
-            bullet.transform.parent = this.transform;
+            bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
+            //bullet.transform.parent = this.transform;
 
         // Destroy that bullet after 1 second.
         Destroy(bullet, 0.5f);
