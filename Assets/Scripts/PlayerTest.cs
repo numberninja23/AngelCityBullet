@@ -28,7 +28,7 @@ public class PlayerTest : MonoBehaviour
         int layerMask = 1 << 8;
         if (Physics.Linecast(transform.position, bluecapsule.transform.position, layerMask))
         {
-                print("blocked");
+                //print("blocked");
                 bluecapsule.transform.position = Vector3.MoveTowards(bluecapsule.transform.position, this.transform.position, 0.2f);
         }
         else if (bluecapsule.transform.position != blueTarget.position)
@@ -39,7 +39,7 @@ public class PlayerTest : MonoBehaviour
         //Move redcapsule
         if (Physics.Linecast(transform.position, redcapsule.transform.position, layerMask))
         {
-            print("blocked");
+            //print("blocked");
             redcapsule.transform.position = Vector3.MoveTowards(redcapsule.transform.position, this.transform.position, 0.2f);
         }
         else if (redcapsule.transform.position != redTarget.position)

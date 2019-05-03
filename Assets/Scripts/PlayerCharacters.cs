@@ -19,61 +19,72 @@ public class PlayerCharacters : MonoBehaviour
 {
 
     // The target that this character is moving toward in the formation.
-        [SerializeField] myArray[] target;
+    [SerializeField] myArray[] target;
 
-        Vector3 lastPos;
+    Vector3 lastPos;
 
-        // Speed in units per sec.
-        public float speed;
-        public float shootSpeed;
-        public float health = 10;
+    bool isHurt = false;
 
-        public int formationSpot = 0;
-        public int formationType = 0;
+    // Speed in units per sec.
+    public float speed;
+    public float shootSpeed;
+    public float health = 10;
 
-        private string direction = "South";
-        private string characterName = "Astrolad";
-        private string shooting = "";
-        private string walking = "";
+    public int formationSpot = 0;
+    public int formationType = 0;
 
-        public Text HPText;
+    private string direction = "South";
+    private string characterName = "Astrolad";
+    private string shooting = "";
+    private string walking = "";
 
-        public Animator anim;
+    public Text HPText;
 
-        //((((REMOVE THIS VARIABLE AFTER YOU ADD A GOOD UI))))
-        public string characterNumber;
+    public Animator anim;
 
-        //player01 is what the object compares its rotation to in order to rotate the sprites.
-        public GameObject player01;
-        public GameObject bulletPrefab;
-        public GameObject damageParticle;
-        public GameObject arrow;
+    //((((REMOVE THIS VARIABLE AFTER YOU ADD A GOOD UI))))
+    public string characterNumber;
+
+    //player01 is what the object compares its rotation to in order to rotate the sprites.
+    public GameObject player01;
+    public GameObject bulletPrefab;
+    public GameObject damageParticle;
+    public GameObject arrow;
+
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
 
     //Tell the character to exit the shooting pose after shooting.
     private IEnumerator ShootStopper()
+    {
+        yield return new WaitForSeconds(1);
+        shooting = "";
+    }
+
+    //rapid shoot at a set interval of time.
+    private IEnumerator ShootRapid()
+    {
+        if (health > 0)
         {
-            yield return new WaitForSeconds(1);
-            shooting = "";
+            yield return new WaitForSeconds(0.2f);
+            Fire();
+            StartCoroutine("ShootRapid");
         }
+    }
 
-        //rapid shoot at a set interval of time.
-        private IEnumerator ShootRapid()
+
+    void Update()
+    {
+        if(isHurt == false)
         {
-            if (health > 0)
-            {
-                yield return new WaitForSeconds(0.2f);
-                Fire();
-                StartCoroutine("ShootRapid");
-            }
-        }
+            HPText.text = characterNumber + "HP: " + health;
 
-
-        void Update()
-        {
-        HPText.text = characterNumber + "HP: " + health;
-
-        // The step size is equal to speed times frame time.
+            // The step size is equal to speed times frame time.
 
             // Sets the sprite/animation of the character to what it should be according to all the neccessary variables.
 
@@ -138,17 +149,16 @@ public class PlayerCharacters : MonoBehaviour
                 Vector3 curPos = this.transform.position;
                 if (curPos != lastPos)
                 {
-                walking = "W";
-                print("walk");
+                    walking = "W";
                 }
                 else
                 {
                     walking = "";
-                //print("no walk");
+                    //print("no walk");
                 }
                 lastPos = curPos;
 
-            if (Input.GetKeyDown(KeyCode.K) && (health > 0))
+                if (Input.GetKeyDown(KeyCode.K) && (health > 0))
                 {
                     shooting = "S";
                     StartCoroutine("ShootRapid");
@@ -192,14 +202,11 @@ public class PlayerCharacters : MonoBehaviour
                 }
             }
 
-        //Moves the character to their position in the character formation.
-        transform.position = Vector3.MoveTowards(transform.position, target[formationType].array[formationSpot].position, 0.5f);
-
-
-
-        arrow.transform.rotation = Quaternion.Euler(90, 0, player01.transform.eulerAngles.y * -1);
+            //Moves the character to their position in the character formation.
+            transform.position = Vector3.MoveTowards(transform.position, target[formationType].array[formationSpot].position, 0.5f);
+            arrow.transform.rotation = Quaternion.Euler(90, 0, player01.transform.eulerAngles.y * -1);
         }
-
+    }
 
 
     void Fire()
@@ -227,14 +234,28 @@ public class PlayerCharacters : MonoBehaviour
         //Get hurt by an enemy.
             if (other.gameObject.CompareTag("Enemy"))
             {
-                health = health - 1;
+            //stop moving this character.
+            isHurt = true;
+
+            health = health - 1;
             var hurtParticle = (GameObject)Instantiate(
                damageParticle,
                this.transform.position,
                this.transform.rotation);
+
+            //knockback
+            var magnitude = 100;
+
+            var force = transform.position - other.transform.position;
+            force.Normalize();
+            rb.AddForce(-force * magnitude);
+            StartCoroutine(StopBeingHurt());
         }
-            //This is for passing through some collision types. ((((UNFINISHED. GET TO WORK ON THIS LATER.))))
-            if (other.gameObject.tag == "theObjectToIgnore")
+
+
+
+        //This is for passing through some collision types. ((((UNFINISHED. GET TO WORK ON THIS LATER.))))
+        if (other.gameObject.tag == "theObjectToIgnore")
             {
                 Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>());
             }
@@ -243,6 +264,15 @@ public class PlayerCharacters : MonoBehaviour
                 Destroy(other.gameObject);
                 health = health + 1;
             }
+        }
+
+    IEnumerator StopBeingHurt()
+    {
+        yield return new WaitForSeconds(0.5F);
+        isHurt = false;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
-    }
+
+}
 
