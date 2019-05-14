@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 8c04f0516fbb0024bb05e5ee06d38f11, type: 2}
+--- !u!1 &889321 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1294369372252950, guid: d59796325c5357b458d93f15535bcce0,
+    type: 3}
+  m_PrefabInstance: {fileID: 2095326971}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &11017140 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4522196217001748, guid: 34f0fd5ab05d9334ba7c7c9fbd1e5fb6,
@@ -2563,7 +2569,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1294369372252950, guid: d59796325c5357b458d93f15535bcce0, type: 3}
       propertyPath: m_Name
-      value: Astro (2)
+      value: Astrolad
       objectReference: {fileID: 0}
     - target: {fileID: 4020066728101964, guid: d59796325c5357b458d93f15535bcce0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2691,6 +2697,29 @@ PrefabInstance:
       propertyPath: shootSpeed
       value: -30
       objectReference: {fileID: 0}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: astroBullet
+      value: 
+      objectReference: {fileID: 3105868422978252886, guid: 726a9fe3fd547064f97cd983aa0990ee,
+        type: 3}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: mariaBullet
+      value: 
+      objectReference: {fileID: 2044575248846716583, guid: 7968df48f8efc734aa9018144f7247ce,
+        type: 3}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: copkidBullet
+      value: 
+      objectReference: {fileID: 3813105866843344025, guid: 967619228a2d69a4a9948b1030a89c96,
+        type: 3}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: currentPlayer
+      value: 
+      objectReference: {fileID: 1479120806}
     - target: {fileID: 6365241472190679420, guid: d59796325c5357b458d93f15535bcce0,
         type: 3}
       propertyPath: m_Speed
@@ -6144,7 +6173,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1294369372252950, guid: d59796325c5357b458d93f15535bcce0, type: 3}
       propertyPath: m_Name
-      value: Astro (1)
+      value: MariaMod
       objectReference: {fileID: 0}
     - target: {fileID: 4020066728101964, guid: d59796325c5357b458d93f15535bcce0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6272,6 +6301,29 @@ PrefabInstance:
       propertyPath: shootSpeed
       value: -30
       objectReference: {fileID: 0}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: astroBullet
+      value: 
+      objectReference: {fileID: 3105868422978252886, guid: 726a9fe3fd547064f97cd983aa0990ee,
+        type: 3}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: mariaBullet
+      value: 
+      objectReference: {fileID: 2044575248846716583, guid: 7968df48f8efc734aa9018144f7247ce,
+        type: 3}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: copkidBullet
+      value: 
+      objectReference: {fileID: 3813105866843344025, guid: 967619228a2d69a4a9948b1030a89c96,
+        type: 3}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: currentPlayer
+      value: 
+      objectReference: {fileID: 2076915603}
     - target: {fileID: 6365241472190679420, guid: d59796325c5357b458d93f15535bcce0,
         type: 3}
       propertyPath: m_Speed
@@ -11880,6 +11932,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1478254883}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1479120806 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1294369372252950, guid: d59796325c5357b458d93f15535bcce0,
+    type: 3}
+  m_PrefabInstance: {fileID: 308137320}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1485425672
 GameObject:
   m_ObjectHideFlags: 0
@@ -16686,6 +16744,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 455436340}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2076915603 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1294369372252950, guid: d59796325c5357b458d93f15535bcce0,
+    type: 3}
+  m_PrefabInstance: {fileID: 682101884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2079054940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16760,7 +16824,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1294369372252950, guid: d59796325c5357b458d93f15535bcce0, type: 3}
       propertyPath: m_Name
-      value: Astro
+      value: CopKid
       objectReference: {fileID: 0}
     - target: {fileID: 4020066728101964, guid: d59796325c5357b458d93f15535bcce0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16866,6 +16930,29 @@ PrefabInstance:
       propertyPath: shootSpeed
       value: -30
       objectReference: {fileID: 0}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: astroBullet
+      value: 
+      objectReference: {fileID: 3105868422978252886, guid: 726a9fe3fd547064f97cd983aa0990ee,
+        type: 3}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: mariaBullet
+      value: 
+      objectReference: {fileID: 2044575248846716583, guid: 7968df48f8efc734aa9018144f7247ce,
+        type: 3}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: copkidBullet
+      value: 
+      objectReference: {fileID: 3813105866843344025, guid: 967619228a2d69a4a9948b1030a89c96,
+        type: 3}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: currentPlayer
+      value: 
+      objectReference: {fileID: 889321}
     - target: {fileID: 6365241472190679420, guid: d59796325c5357b458d93f15535bcce0,
         type: 3}
       propertyPath: m_Speed

@@ -35,6 +35,7 @@ public class PlayerCharacters : MonoBehaviour
 
     private string direction = "South";
     private string characterName = "Astrolad";
+    private string shooterName; // NOTE: shooterName is a temp var just to unlink the animations to the shooting type.
     private string shooting = "";
     private string walking = "";
 
@@ -47,17 +48,29 @@ public class PlayerCharacters : MonoBehaviour
 
     //player01 is what the object compares its rotation to in order to rotate the sprites.
     public GameObject player01;
+    public GameObject currentPlayer;
     public GameObject bulletPrefab;
+    public GameObject astroBullet;
+    public GameObject mariaBullet;
+    public GameObject copkidBullet;
+    private float coolTime;
+    public float astroDespawn;
+    public float mariaDespawn;
+
     public GameObject damageParticle;
     public GameObject arrow;
 
     private Rigidbody rb;
 
+    private void Start()
+    {
+        shooterName = currentPlayer.name;
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
-
 
     //Tell the character to exit the shooting pose after shooting.
     private IEnumerator ShootStopper()
@@ -71,7 +84,7 @@ public class PlayerCharacters : MonoBehaviour
     {
         if (health > 0)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(coolTime);
             Fire();
             StartCoroutine("ShootRapid");
         }
@@ -80,7 +93,7 @@ public class PlayerCharacters : MonoBehaviour
 
     void Update()
     {
-        if(isHurt == false)
+        if (isHurt == false)
         {
             HPText.text = characterNumber + "HP: " + health;
 
@@ -162,7 +175,25 @@ public class PlayerCharacters : MonoBehaviour
                 {
                     shooting = "S";
                     StartCoroutine("ShootRapid");
-                    Fire();
+                    if (shooterName == "Astrolad")
+                    {
+                        coolTime = .01f;
+                        FireAstro();
+                    }
+                    else if (shooterName == "MariaMod")
+                    {
+                        coolTime = .06f;
+                        FireMaria();
+                    }
+                    else if (shooterName == "CopKid")
+                    {
+                        coolTime = 1f;
+                        FireKid();
+                    }
+                    else
+                    {
+                        Fire();
+                    }
                 }
                 if (Input.GetKeyUp(KeyCode.K))
                 {
@@ -210,30 +241,85 @@ public class PlayerCharacters : MonoBehaviour
 
 
     void Fire()
-        {
-            StopCoroutine("ShootStopper");
-            // Create the Bullet from the Bullet Prefab.
-            var bullet = (GameObject)Instantiate(
-                bulletPrefab,
-                this.transform.position,
-                this.transform.rotation);
+    {
+        StopCoroutine("ShootStopper");
+        // Create the Bullet from the Bullet Prefab.
+        var bullet = (GameObject)Instantiate(
+            bulletPrefab,
+            this.transform.position,
+            this.transform.rotation);
 
-            // Add velocity to the bullet this character just created.
-            bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
-            //bullet.transform.parent = this.transform;
+        // Add velocity to the bullet this character just created.
+        bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
+        //bullet.transform.parent = this.transform;
 
         // Destroy that bullet after 1 second.
         Destroy(bullet, 0.5f);
-            StartCoroutine("ShootStopper");
-        }
+        StartCoroutine("ShootStopper");
+    }
+
+    void FireAstro() // Fires the flame bullet Sprite constantly, with each bullet despawning at a short distance.
+    {
+        StopCoroutine("ShootStopper");
+        // Create the Bullet from the Bullet Prefab.
+        var bullet = (GameObject)Instantiate(
+                astroBullet,
+                this.transform.position,
+                this.transform.rotation);
+        Debug.Log("I am firing as Astrolad.");
+
+        // Add velocity to the bullet this character just created.
+        bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
+        //bullet.transform.parent = this.transform;
+
+        // Destroy that bullet after 1 second.
+        Destroy(bullet, astroDespawn / 2f);
+        StartCoroutine("ShootStopper");
+    }
+
+    void FireMaria() // Fires blue bullets at a high rate, for a long distance until despawn.
+    {
+        StopCoroutine("ShootStopper");
+        // Create the Bullet from the Bullet Prefab.
+        var bullet = (GameObject)Instantiate(
+                mariaBullet,
+                this.transform.position,
+                this.transform.rotation);
+        Debug.Log("I am firing as Maria Mod.");
+
+        // Add velocity to the bullet this character just created.
+        bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
+        //bullet.transform.parent = this.transform;
+
+        // Destroy that bullet after 1.5 seconds.
+        Destroy(bullet, mariaDespawn / 2f);
+        StartCoroutine("ShootStopper");
+    }
+
+    void FireKid() // Shoots a laser at a very low fire rate. The laser gets stronger the farther away it is, and only despawns when hitting walls.
+    {
+        StopCoroutine("ShootStopper");
+        // Create the Bullet from the Bullet Prefab.
+        var bullet = (GameObject)Instantiate(
+                copkidBullet,
+                this.transform.position,
+                this.transform.rotation);
+        Debug.Log("I am firing as Cop Kid.");
+
+        // Add velocity to the bullet this character just created.
+        bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
+        //bullet.transform.parent = this.transform;
+
+        Destroy(bullet, astroDespawn / 2f);
+        StartCoroutine("ShootStopper");
+    }
 
 
-
-        void OnTriggerEnter(Collider other)
-        {
+    void OnTriggerEnter(Collider other)
+    {
         //Get hurt by an enemy.
-            if (other.gameObject.CompareTag("Enemy"))
-            {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
             //stop moving this character.
             isHurt = true;
 
@@ -256,15 +342,15 @@ public class PlayerCharacters : MonoBehaviour
 
         //This is for passing through some collision types. ((((UNFINISHED. GET TO WORK ON THIS LATER.))))
         if (other.gameObject.tag == "theObjectToIgnore")
-            {
-                Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>());
-            }
-            if (other.gameObject.CompareTag("HPItem"))
-            {
-                Destroy(other.gameObject);
-                health = health + 1;
-            }
+        {
+            Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>());
         }
+        if (other.gameObject.CompareTag("HPItem"))
+        {
+            Destroy(other.gameObject);
+            health = health + 1;
+        }
+    }
 
     IEnumerator StopBeingHurt()
     {
