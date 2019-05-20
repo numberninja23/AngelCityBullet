@@ -56,6 +56,7 @@ public class PlayerCharacters : MonoBehaviour
     public GameObject damageParticle;
     public GameObject arrow;
 
+    public GameObject mariaMuzzle;
     public Transform machPosLeft;
     public Transform machPosRight;
     private float toggleMachPos = 1f;
@@ -111,6 +112,9 @@ public class PlayerCharacters : MonoBehaviour
             {
                 anim.Play(characterName + direction + walking + shooting);
             }
+
+            if (mariaMuzzle.activeSelf && shooting == "")
+                mariaMuzzle.SetActive(false);
 
             //Check how much HP the guy has and if they're dead, make them act dead.
             if (health <= 0)
@@ -236,7 +240,10 @@ public class PlayerCharacters : MonoBehaviour
             bulletPrefab,
             this.transform.position,
             this.transform.rotation);
-
+        if(currentPlayer.name == "MariaMod")
+        {
+            mariaMuzzle.SetActive(true);
+        }
         // Add velocity to the bullet this character just created.
         bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
         //bullet.transform.parent = this.transform;

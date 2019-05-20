@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2730,6 +2730,12 @@ PrefabInstance:
       propertyPath: despawnTime
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 3105868422978252886, guid: 726a9fe3fd547064f97cd983aa0990ee,
+        type: 3}
     - target: {fileID: 6365241472190679420, guid: d59796325c5357b458d93f15535bcce0,
         type: 3}
       propertyPath: m_Speed
@@ -6364,6 +6370,12 @@ PrefabInstance:
       propertyPath: despawnTime
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 2044575248846716583, guid: 7968df48f8efc734aa9018144f7247ce,
+        type: 3}
     - target: {fileID: 6365241472190679420, guid: d59796325c5357b458d93f15535bcce0,
         type: 3}
       propertyPath: m_Speed
@@ -17010,6 +17022,12 @@ PrefabInstance:
       propertyPath: shootDelayTime
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 3813105866843344025, guid: 967619228a2d69a4a9948b1030a89c96,
+        type: 3}
     - target: {fileID: 6365241472190679420, guid: d59796325c5357b458d93f15535bcce0,
         type: 3}
       propertyPath: m_Speed
