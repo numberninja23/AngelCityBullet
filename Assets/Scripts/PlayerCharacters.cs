@@ -35,7 +35,6 @@ public class PlayerCharacters : MonoBehaviour
 
     private string direction = "South";
     private string characterName = "Astrolad";
-    private string shooterName; // NOTE: shooterName is a temp var just to unlink the animations to the shooting type.
     private string shooting = "";
     private string walking = "";
 
@@ -50,12 +49,9 @@ public class PlayerCharacters : MonoBehaviour
     public GameObject player01;
     public GameObject currentPlayer;
     public GameObject bulletPrefab;
-    public GameObject astroBullet;
-    public GameObject mariaBullet;
-    public GameObject copkidBullet;
-    private float coolTime;
-    public float astroDespawn = 1f;
-    public float mariaDespawn = 2f;
+    public float despawnTime = 1f;
+    public float shootDelayTime = 1f;
+
 
     public GameObject damageParticle;
     public GameObject arrow;
@@ -66,15 +62,11 @@ public class PlayerCharacters : MonoBehaviour
 
     private Rigidbody rb;
 
-    private void Start()
-    {
-        shooterName = currentPlayer.name;
-    }
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
+
 
     //Tell the character to exit the shooting pose after shooting.
     private IEnumerator ShootStopper()
@@ -83,15 +75,25 @@ public class PlayerCharacters : MonoBehaviour
         shooting = "";
     }
 
+
     //rapid shoot at a set interval of time.
     private IEnumerator ShootRapid()
     {
         if (health > 0)
         {
-            yield return new WaitForSeconds(coolTime);
+            yield return new WaitForSeconds(shootDelayTime);
             Fire();
             StartCoroutine("ShootRapid");
         }
+    }
+
+
+    IEnumerator StopBeingHurt()
+    {
+        yield return new WaitForSeconds(0.5F);
+        isHurt = false;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
 
@@ -178,25 +180,7 @@ public class PlayerCharacters : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.K) && (health > 0))
                 {
                     shooting = "S";
-                    if (shooterName == "Astrolad")
-                    {
-                        coolTime = .01f;
-                        FireAstro();
-                    }
-                    else if (shooterName == "MariaMod")
-                    {
-                        coolTime = .06f;
-                        FireMaria();
-                    }
-                    else if (shooterName == "CopKid")
-                    {
-                        coolTime = 1f;
-                        FireKid();
-                    }
-                    else
-                    {
-                        Fire();
-                    }
+                    Fire();                    
                     StartCoroutine("ShootRapid");
                     
                 }
@@ -244,10 +228,8 @@ public class PlayerCharacters : MonoBehaviour
         }
     }
 
-
     void Fire()
-    {
-        
+    {        
         StopCoroutine("ShootStopper");
         // Create the Bullet from the Bullet Prefab.
         var bullet = (GameObject)Instantiate(
@@ -260,83 +242,8 @@ public class PlayerCharacters : MonoBehaviour
         //bullet.transform.parent = this.transform;
 
         // Destroy that bullet after 1 second.
-        Destroy(bullet, 0.5f);
-        StartCoroutine("ShootStopper");
-        
-        /* what i have, but doesnt work
-        if (shooterName == "Astrolad")
-        {
-            FireAstro();
-        }
-        else if (shooterName == "MariaMod")
-        {
-            FireMaria();
-        }
-        else if (shooterName == "CopKid")
-        {
-            FireKid();
-        }
-        else
-        {
-            Debug.Log("im not firing for some reason");
-        }
-        */
-    }
-
-    void FireAstro() // Fires the flame bullet Sprite constantly, with each bullet despawning at a short distance.
-    {
-        StopCoroutine("ShootStopper");
-        // Create the Bullet from the Bullet Prefab.
-        var bullet = (GameObject)Instantiate(
-                astroBullet,
-                this.transform.position,
-                this.transform.rotation);
-        Debug.Log("I am firing as Astrolad.");
-
-        // Add velocity to the bullet this character just created.
-        bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
-        //bullet.transform.parent = this.transform;
-
-        // Destroy that bullet after 1 second.
-        Destroy(bullet, astroDespawn / 2f );
-        StartCoroutine("ShootStopper");
-    }
-
-    void FireMaria() // Fires blue bullets at a high rate, for a long distance until despawn.
-    {
-        StopCoroutine("ShootStopper");
-        // Create the Bullet from the Bullet Prefab.
-        var bullet = (GameObject)Instantiate(
-                mariaBullet,
-                this.transform.position,
-                this.transform.rotation);
-        Debug.Log("I am firing as Maria Mod.");
-        // Add velocity to the bullet this character just created.
-        bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
-        //bullet.transform.parent = this.transform;
-        
-        // Destroy that bullet after 1.5 seconds.
-        Destroy(bullet, mariaDespawn / 2f);
-
-        StartCoroutine("ShootStopper");
-    }
-
-    void FireKid() // Shoots a laser at a very low fire rate. The laser gets stronger the farther away it is, and only despawns when hitting walls.
-    {
-        StopCoroutine("ShootStopper");
-        // Create the Bullet from the Bullet Prefab.
-        var bullet = (GameObject)Instantiate(
-                copkidBullet,
-                this.transform.position,
-                this.transform.rotation);
-        Debug.Log("I am firing as Cop Kid.");
-
-        // Add velocity to the bullet this character just created.
-        bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
-        //bullet.transform.parent = this.transform;
-
-        Destroy(bullet, astroDespawn / 2f);
-        StartCoroutine("ShootStopper");
+        Destroy(bullet, despawnTime);
+        StartCoroutine("ShootStopper");       
     }
 
 
@@ -375,15 +282,6 @@ public class PlayerCharacters : MonoBehaviour
             Destroy(other.gameObject);
             health = health + 1;
         }
-    }
-
-    IEnumerator StopBeingHurt()
-    {
-        yield return new WaitForSeconds(0.5F);
-        isHurt = false;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-    }
-
+    }   
 }
 
