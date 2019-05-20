@@ -54,11 +54,15 @@ public class PlayerCharacters : MonoBehaviour
     public GameObject mariaBullet;
     public GameObject copkidBullet;
     private float coolTime;
-    public float astroDespawn;
-    public float mariaDespawn;
+    public float astroDespawn = 1f;
+    public float mariaDespawn = 2f;
 
     public GameObject damageParticle;
     public GameObject arrow;
+
+    public Transform machPosLeft;
+    public Transform machPosRight;
+    private float toggleMachPos = 1f;
 
     private Rigidbody rb;
 
@@ -174,7 +178,6 @@ public class PlayerCharacters : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.K) && (health > 0))
                 {
                     shooting = "S";
-                    StartCoroutine("ShootRapid");
                     if (shooterName == "Astrolad")
                     {
                         coolTime = .01f;
@@ -194,6 +197,8 @@ public class PlayerCharacters : MonoBehaviour
                     {
                         Fire();
                     }
+                    StartCoroutine("ShootRapid");
+                    
                 }
                 if (Input.GetKeyUp(KeyCode.K))
                 {
@@ -242,6 +247,7 @@ public class PlayerCharacters : MonoBehaviour
 
     void Fire()
     {
+        
         StopCoroutine("ShootStopper");
         // Create the Bullet from the Bullet Prefab.
         var bullet = (GameObject)Instantiate(
@@ -256,6 +262,25 @@ public class PlayerCharacters : MonoBehaviour
         // Destroy that bullet after 1 second.
         Destroy(bullet, 0.5f);
         StartCoroutine("ShootStopper");
+        
+        /* what i have, but doesnt work
+        if (shooterName == "Astrolad")
+        {
+            FireAstro();
+        }
+        else if (shooterName == "MariaMod")
+        {
+            FireMaria();
+        }
+        else if (shooterName == "CopKid")
+        {
+            FireKid();
+        }
+        else
+        {
+            Debug.Log("im not firing for some reason");
+        }
+        */
     }
 
     void FireAstro() // Fires the flame bullet Sprite constantly, with each bullet despawning at a short distance.
@@ -273,7 +298,7 @@ public class PlayerCharacters : MonoBehaviour
         //bullet.transform.parent = this.transform;
 
         // Destroy that bullet after 1 second.
-        Destroy(bullet, astroDespawn / 2f);
+        Destroy(bullet, astroDespawn / 2f );
         StartCoroutine("ShootStopper");
     }
 
@@ -286,13 +311,13 @@ public class PlayerCharacters : MonoBehaviour
                 this.transform.position,
                 this.transform.rotation);
         Debug.Log("I am firing as Maria Mod.");
-
         // Add velocity to the bullet this character just created.
         bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
         //bullet.transform.parent = this.transform;
-
+        
         // Destroy that bullet after 1.5 seconds.
         Destroy(bullet, mariaDespawn / 2f);
+
         StartCoroutine("ShootStopper");
     }
 

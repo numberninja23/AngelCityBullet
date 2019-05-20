@@ -6324,6 +6324,16 @@ PrefabInstance:
       propertyPath: currentPlayer
       value: 
       objectReference: {fileID: 2076915603}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: machPosRight
+      value: 
+      objectReference: {fileID: 1841058390}
+    - target: {fileID: 114483232335406552, guid: d59796325c5357b458d93f15535bcce0,
+        type: 3}
+      propertyPath: machPosLeft
+      value: 
+      objectReference: {fileID: 793084610}
     - target: {fileID: 6365241472190679420, guid: d59796325c5357b458d93f15535bcce0,
         type: 3}
       propertyPath: m_Speed
@@ -7682,6 +7692,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &793084610 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6298187078569508592, guid: d59796325c5357b458d93f15535bcce0,
+    type: 3}
+  m_PrefabInstance: {fileID: 682101884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &808823897
 GameObject:
   m_ObjectHideFlags: 0
@@ -15028,6 +15044,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832699062}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1841058390 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3421245223459938945, guid: d59796325c5357b458d93f15535bcce0,
+    type: 3}
+  m_PrefabInstance: {fileID: 682101884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1848933470
 PrefabInstance:
   m_ObjectHideFlags: 0

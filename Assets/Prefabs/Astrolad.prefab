@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 54733486829416176}
   - component: {fileID: 6365241472190679420}
   m_Layer: 0
-  m_Name: Astro
+  m_Name: Astrolad
   m_TagString: TheObjectToIgnore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,6 +67,8 @@ Transform:
   m_Children:
   - {fileID: 4373112444029924}
   - {fileID: 4141986632714434}
+  - {fileID: 3421245223459938945}
+  - {fileID: 6298187078569508592}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -171,11 +173,19 @@ MonoBehaviour:
   anim: {fileID: 95421472755220724}
   characterNumber: 0
   player01: {fileID: 0}
+  currentPlayer: {fileID: 0}
   bulletPrefab: {fileID: 1840457674233558, guid: 5e4ff3fec98ed5640a8b8af459a8edbc,
     type: 3}
+  astroBullet: {fileID: 0}
+  mariaBullet: {fileID: 0}
+  copkidBullet: {fileID: 0}
+  astroDespawn: 0
+  mariaDespawn: 0
   damageParticle: {fileID: 1724561443554172, guid: 95550433afa64474790958a295a283a8,
     type: 3}
   arrow: {fileID: 1050878154109350}
+  machPosLeft: {fileID: 6298187078569508592}
+  machPosRight: {fileID: 3421245223459938945}
 --- !u!82 &82084117679499778
 AudioSource:
   m_ObjectHideFlags: 0
@@ -481,3 +491,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &762213004811860991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6298187078569508592}
+  m_Layer: 0
+  m_Name: machPos_Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6298187078569508592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762213004811860991}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.25, y: -0.5000001, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5000001, z: 0.5000001}
+  m_Children: []
+  m_Father: {fileID: 4020066728101964}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4625505480672457634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3421245223459938945}
+  m_Layer: 0
+  m_Name: machPos_Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3421245223459938945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4625505480672457634}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.25, y: -0.5, z: -0}
+  m_LocalScale: {x: 0.5, y: 0.5000001, z: 0.5000001}
+  m_Children: []
+  m_Father: {fileID: 4020066728101964}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
