@@ -8,10 +8,11 @@ public class PlayerTest : MonoBehaviour
     public GameObject bluecapsule;
     public Transform blueTarget;
     public GameObject redcapsule;
-    public Transform redTarget;    
+    public Transform redTarget;
 
     void Update()
-    {     
+    {
+        /*
         //Rotates the player
         if (Input.GetKey(KeyCode.J))
         {
@@ -20,6 +21,15 @@ public class PlayerTest : MonoBehaviour
         if (Input.GetKey(KeyCode.L))
         {
             transform.Rotate(Vector3.up, 200 * Time.deltaTime);
+        }
+        */
+
+
+        //Rotates the player ver. 2
+        var input = new Vector3(Input.GetAxis("Horizontal2") * -1, 0, Input.GetAxis("Vertical2") * -1);
+        if (input != Vector3.zero)
+        {
+            transform.forward = input;
         }
 
 

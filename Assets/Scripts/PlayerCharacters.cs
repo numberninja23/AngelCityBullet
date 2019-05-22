@@ -33,8 +33,8 @@ public class PlayerCharacters : MonoBehaviour
     public int formationSpot = 0;
     public int formationType = 0;
 
+    public string characterName;
     private string direction = "South";
-    private string characterName = "Astrolad";
     private string shooting = "";
     private string walking = "";
 
@@ -168,7 +168,6 @@ public class PlayerCharacters : MonoBehaviour
                     direction = "South";
                 }
 
-
                 Vector3 curPos = this.transform.position;
                 if (curPos != lastPos)
                 {
@@ -181,14 +180,14 @@ public class PlayerCharacters : MonoBehaviour
                 }
                 lastPos = curPos;
 
-                if (Input.GetKeyDown(KeyCode.K) && (health > 0))
+                if (Input.GetKeyDown("joystick button 5") && (health > 0))
                 {
                     shooting = "S";
                     Fire();                    
                     StartCoroutine("ShootRapid");
                     
                 }
-                if (Input.GetKeyUp(KeyCode.K))
+                if (Input.GetKeyUp("joystick button 5"))
                 {
                     StopCoroutine("ShootRapid");
                 }
@@ -198,20 +197,7 @@ public class PlayerCharacters : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.P))
             {
                 print(this.transform.rotation.eulerAngles.z);
-            }
-
-            //cycle through character positions
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                if (formationSpot == 0)
-                {
-                    formationSpot = 2;
-                }
-                else
-                {
-                    formationSpot -= 1;
-                }
-            }
+            }       
 
             //Change the formation type.
             if (Input.GetKeyDown(KeyCode.O))
@@ -229,6 +215,31 @@ public class PlayerCharacters : MonoBehaviour
             //Moves the character to their position in the character formation.
             transform.position = Vector3.MoveTowards(transform.position, target[formationType].array[formationSpot].position, 0.5f);
             arrow.transform.rotation = Quaternion.Euler(90, 0, player01.transform.eulerAngles.y * -1);
+        }
+
+        //cycle through character positions
+        if (Input.GetKeyDown("joystick button 3"))
+        {
+            if (formationSpot == 0)
+            {
+                formationSpot = 2;
+            }
+            else
+            {
+                formationSpot -= 1;
+            }
+        }
+
+        if (Input.GetKeyDown("joystick button 1"))
+        {
+            if (formationSpot == 2)
+            {
+                formationSpot = 0;
+            }
+            else
+            {
+                formationSpot += 1;
+            }
         }
     }
 
