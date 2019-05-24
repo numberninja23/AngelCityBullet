@@ -29,6 +29,8 @@ public class PlayerCharacters : MonoBehaviour
     public float speed;
     public float shootSpeed;
     public float health = 10;
+    public float despawnTime = 1f;
+    public float shootDelayTime = 1f;
 
     public int formationSpot = 0;
     public int formationType = 0;
@@ -37,31 +39,25 @@ public class PlayerCharacters : MonoBehaviour
     private string direction = "South";
     private string shooting = "";
     private string walking = "";
-
-    public Text HPText;
-
-    public Animator anim;
-
     //((((REMOVE THIS VARIABLE AFTER YOU ADD A GOOD UI))))
     public string characterNumber;
 
     //player01 is what the object compares its rotation to in order to rotate the sprites.
     public GameObject player01;
-    public GameObject currentPlayer;
     public GameObject bulletPrefab;
-    public float despawnTime = 1f;
-    public float shootDelayTime = 1f;
-
-
     public GameObject damageParticle;
     public GameObject arrow;
+    public GameObject muzzleFlare;
 
-    public GameObject mariaMuzzle;
     public Transform machPosLeft;
     public Transform machPosRight;
-    private float toggleMachPos = 1f;
 
     private Rigidbody rb;
+
+    public Text HPText;
+
+    public Animator anim;
+
 
     private void Awake()
     {
@@ -112,9 +108,6 @@ public class PlayerCharacters : MonoBehaviour
             {
                 anim.Play(characterName + direction + walking + shooting);
             }
-
-            if (mariaMuzzle.activeSelf && shooting == "")
-                mariaMuzzle.SetActive(false);
 
             //Check how much HP the guy has and if they're dead, make them act dead.
             if (health <= 0)
@@ -190,6 +183,7 @@ public class PlayerCharacters : MonoBehaviour
                 if (Input.GetKeyUp("joystick button 5"))
                 {
                     StopCoroutine("ShootRapid");
+                    muzzleFlare.SetActive(false);
                 }
             }
 
@@ -244,17 +238,23 @@ public class PlayerCharacters : MonoBehaviour
     }
 
     void Fire()
-    {        
+    {   
         StopCoroutine("ShootStopper");
         // Create the Bullet from the Bullet Prefab.
         var bullet = (GameObject)Instantiate(
             bulletPrefab,
-            this.transform.position,
-            this.transform.rotation);
-        if(currentPlayer.name == "MariaMod")
+            this.transform.position, this.transform.rotation);
+
+
+        float bulletRotation;
+
+        if (this.characterName == "Maria")
         {
-            mariaMuzzle.SetActive(true);
+            muzzleFlare.SetActive(true);
+            bullet.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, player01.transform.eulerAngles.y +90, this.transform.eulerAngles.z);
         }
+
+
         // Add velocity to the bullet this character just created.
         bullet.GetComponent<Rigidbody>().velocity = player01.transform.forward * shootSpeed;
         //bullet.transform.parent = this.transform;
