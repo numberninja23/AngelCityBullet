@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public int camTypeNumber = 0;
     public GameObject[] camType;
     public Rigidbody rb;
-    public float playerSpeed;
+    public float playerSpeed = 15;
 
 
     // Update is called once per frame
@@ -32,6 +32,15 @@ public class PlayerController : MonoBehaviour
                 camTypeNumber = 1;
             }
             camType[camTypeNumber].SetActive(true);
+        }
+
+        if ((Input.GetAxis("Trigger") > 0))
+        {
+            playerSpeed = 11;
+        }
+        else
+        {
+            playerSpeed = 15;
         }
     }
 }

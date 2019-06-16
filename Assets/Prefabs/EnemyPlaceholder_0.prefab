@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.15
   hp: 5
-  damageParticle: {fileID: 1541824851885254, guid: 4d119ed7c56fe9847aaa6ba7de29a861,
+  damageParticle: {fileID: 1724561443554172, guid: 95550433afa64474790958a295a283a8,
     type: 3}
   healthItem: {fileID: 1402541192182214, guid: fa6d97c8ef0db124a88512d6a6d3d3a6, type: 3}
 --- !u!95 &95014529301568856

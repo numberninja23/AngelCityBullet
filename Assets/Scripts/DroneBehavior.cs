@@ -5,31 +5,36 @@ using UnityEngine;
 public class DroneBehavior : MonoBehaviour
 {
     private float moveDirection;
+
     public float speed = 0.05f;
-    public float hp = 10;
+    public float hp = 15;
+    public float despawnTime;
+    public float shootSpeed;
 
     public GameObject damageParticle;
     public GameObject healthItem;
-    public Transform movement;
-    private Vector3 moveAngle;
+    public GameObject bulletPrefab;
 
+    public Transform player;
+
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     void Start()
     {
-        //Picks a random angle from 30 to 90 and sets its direction to that.
-        
-        moveDirection = Random.Range(30, 90);
-        //moveAngle = new Vector3(moveAngle.x, moveDirection, moveAngle.z);
-        movement.Rotate(0, 0, moveDirection);
+        moveDirection = Random.Range(0, 3);
         StartCoroutine(ChangeDirection());
+        StartCoroutine(Fire1());
     }
 
 
     void Update()
     {
         //Check what direction to move in and go that way.
-
-        /*
         if (moveDirection == 0)
         {
             transform.Translate(-speed, 0, 0);
@@ -46,23 +51,20 @@ public class DroneBehavior : MonoBehaviour
         {
             transform.Translate(0, -speed, 0);
         }
-        */
 
-        //Move according to ChangeDirection().
-        movement.Translate(speed, 0, 0);
-        Vector3 temp = movement.position;
-        movement.position = transform.position;
-        transform.position = temp;
-          
 
         //Die and drop a health item.
         if (hp <= 0)
         {
-            var HPItem = (GameObject)Instantiate(
+            /*
+            if (Random.Range(0, 4) == 1)
+            {
+                var HPItem = (GameObject)Instantiate(
              healthItem,
              this.transform.position,
              this.transform.rotation);
-
+            }
+            */
             Destroy(this.gameObject);
         }
     }
@@ -70,24 +72,73 @@ public class DroneBehavior : MonoBehaviour
     //Get hurt by player bullets.
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("PlayerBullet"))
+        if ((other.gameObject.CompareTag("PlayerBullet")) || (other.gameObject.CompareTag("PlayerExplosion")))
         {
-            Destroy(other.gameObject);
+            if (other.gameObject.CompareTag("PlayerBullet"))
+            {
+                Destroy(other.gameObject);
+            }
             var hurtParticle = (GameObject)Instantiate(
-               damageParticle,
-               this.transform.position,
-               this.transform.rotation);
+                         damageParticle,
+                         this.transform.position,
+                         this.transform.rotation);
+            //hurtParticle.transform.parent = this.transform;
+
             hp = hp - 1;
         }
     }
 
-    //Randomly change the direction this enemy is moving in (from 30 to 90 degrees).
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("PlayerExplosion"))
+        {
+            var magnitude = 1000;
+
+            var force = player.transform.position - transform.position;
+            force.Normalize();
+            rb.AddForce(-force * magnitude);
+        }
+    }
+
+
+    //Randomly change the direction this enemy is moving in.
     IEnumerator ChangeDirection()
     {
-        yield return new WaitForSeconds(2f);
-        moveDirection = Random.Range(30, 90);
-        //moveAngle = new Vector3(moveAngle.x, moveDirection, moveAngle.z);
-        movement.Rotate(0, 0, moveDirection);
+        yield return new WaitForSeconds(0.5f);
+        moveDirection = Random.Range(0, 4);
         StartCoroutine(ChangeDirection());
+    }
+
+    private void FireGeneral(bool vertHoriz, float direction)
+    {
+        var bullet = (GameObject)Instantiate(
+             bulletPrefab,
+             this.transform.position,
+             this.transform.rotation);
+
+        // Add velocity to the bullet
+        if (vertHoriz == true)
+        {
+            bullet.GetComponent<Rigidbody>().velocity = this.transform.right * direction;
+        }
+        else if (vertHoriz == false)
+        {
+            bullet.GetComponent<Rigidbody>().velocity = this.transform.up * direction;
+        }
+        // Destroy the bullet after 4 seconds
+        Destroy(bullet, 4);
+    }
+
+    IEnumerator Fire1()
+    {
+        yield return new WaitForSeconds(1.5f);
+        FireGeneral(true, -shootSpeed);
+        FireGeneral(true, shootSpeed);
+        FireGeneral(false, -shootSpeed);
+        FireGeneral(false, shootSpeed);
+
+        StartCoroutine(Fire1());
+
     }
 }

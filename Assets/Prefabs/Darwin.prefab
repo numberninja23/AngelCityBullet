@@ -135,25 +135,29 @@ MonoBehaviour:
     - {fileID: 0}
   speed: 5
   shootSpeed: -30
-  health: 10
+  health: 2
+  despawnTime: 1
+  shootDelayTime: 0.3
   formationSpot: 0
   formationType: 0
+  formationNum: 0
   characterName: Darwin
-  HPText: {fileID: 0}
-  anim: {fileID: 889326}
   characterNumber: 0
   player01: {fileID: 0}
-  currentPlayer: {fileID: 889321}
   bulletPrefab: {fileID: 3813105866843344025, guid: 967619228a2d69a4a9948b1030a89c96,
     type: 3}
-  despawnTime: 1
-  shootDelayTime: 0.4
   damageParticle: {fileID: 1724561443554172, guid: 95550433afa64474790958a295a283a8,
     type: 3}
+  healthParticle: {fileID: 1541824851885254, guid: 4d119ed7c56fe9847aaa6ba7de29a861,
+    type: 3}
   arrow: {fileID: 2064550162}
-  mariaMuzzle: {fileID: 953026601}
+  muzzleFlare: {fileID: 953026601}
   machPosLeft: {fileID: 1647927748}
   machPosRight: {fileID: 1215116050}
+  resetSpot: {fileID: 0}
+  bulletSpawn: {fileID: 2015061601}
+  HPText: {fileID: 0}
+  anim: {fileID: 889326}
 --- !u!82 &889324
 AudioSource:
   m_ObjectHideFlags: 0

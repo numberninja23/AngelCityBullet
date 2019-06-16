@@ -11,6 +11,14 @@ public class EnemyScript : MonoBehaviour
     public GameObject damageParticle;
     public GameObject healthItem;
 
+    public Transform player;
+
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     void Start()
     {
@@ -43,11 +51,15 @@ public class EnemyScript : MonoBehaviour
         //Die and drop a health item.
         if(hp <= 0)
         {
-            var HPItem = (GameObject)Instantiate(
+            /*
+            if (Random.Range(0, 4) == 1)
+            {
+                var HPItem = (GameObject)Instantiate(
              healthItem,
              this.transform.position,
              this.transform.rotation);
-
+            }
+            */
             Destroy(this.gameObject);
         }
     }
@@ -55,19 +67,35 @@ public class EnemyScript : MonoBehaviour
     //Get hurt by player bullets.
     void OnTriggerEnter(Collider other)
     {     
-        if (other.gameObject.CompareTag("PlayerBullet"))
+        if ((other.gameObject.CompareTag("PlayerBullet")) || (other.gameObject.CompareTag("PlayerExplosion")))
         {
             Destroy(other.gameObject);
             var hurtParticle = (GameObject)Instantiate(
-               damageParticle,
-               this.transform.position,
-               this.transform.rotation);
+                         damageParticle,
+                         this.transform.position,
+                         this.transform.rotation);
+            //hurtParticle.transform.parent = this.transform;
+
             hp = hp - 1;
-        }      
+        }
     }
 
-    //Randomly change the direction this enemy is moving in.
-    IEnumerator ChangeDirection()
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("PlayerExplosion"))
+        {
+            var magnitude = 1000;
+
+            var force = player.transform.position - transform.position ;
+            force.Normalize();
+            rb.AddForce(-force * magnitude);
+        }
+    }
+
+
+//Randomly change the direction this enemy is moving in.
+IEnumerator ChangeDirection()
     {
         yield return new WaitForSeconds(0.5f);
         moveDirection = Random.Range(0, 4);

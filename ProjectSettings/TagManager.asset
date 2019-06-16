@@ -9,6 +9,8 @@ TagManager:
   - TheObjectToIgnore
   - HPItem
   - Wall
+  - HPPad
+  - PlayerExplosion
   layers:
   - Default
   - TransparentFX

@@ -6,16 +6,39 @@ public class BulletScript : MonoBehaviour
 {
     public string bulletType;
 
+    public GameObject explosion;
+
+
     void Start()
     {
+        if(bulletType == "bomb")
+        {
+            StartCoroutine("DestroySelf");
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        //Get hurt by an enemy.
-        if (other.gameObject.CompareTag("Wall"))
+        //Hit a wall
+        if ((other.gameObject.CompareTag("Wall")) && (bulletType != "bomb"))
         {
             Destroy(this.gameObject);
+        }
+    }
+
+    private IEnumerator DestroySelf()
+    {
+        yield return new WaitForSeconds(0.6f);
+        Destroy(this.gameObject);
+    }
+
+    void OnDestroy()
+    {
+        if (bulletType == "Darwin")
+        {
+            var bullet = (GameObject)Instantiate(
+                explosion,
+                this.transform.position, this.transform.rotation);
         }
     }
 }

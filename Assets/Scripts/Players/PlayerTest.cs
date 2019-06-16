@@ -25,13 +25,24 @@ public class PlayerTest : MonoBehaviour
         */
 
 
+        /*
         //Rotates the player ver. 2
         var input = new Vector3(Input.GetAxis("Horizontal2") * -1, 0, Input.GetAxis("Vertical2") * -1);
         if (input != Vector3.zero)
         {
             transform.forward = input;
         }
+        */
 
+
+        //Rotates the player ver. 2
+        var input = new Vector3(Input.GetAxis("Horizontal2") * -1, 0, Input.GetAxis("Vertical2") * -1);
+
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, input, 0.45f, 0.0f);
+            Debug.DrawRay(transform.position, newDir, Color.red);
+
+            // Move our position a step closer to the target.
+            transform.rotation = Quaternion.LookRotation(newDir);
 
 
         //Move bluecapsule
