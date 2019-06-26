@@ -23,6 +23,7 @@ public class PlayerCharacters : MonoBehaviour
 
     bool isHurt = false;
     bool invincible = false;
+    bool isShooting = false;
 
     // Speed in units per sec.
     public float speed;
@@ -181,7 +182,7 @@ public class PlayerCharacters : MonoBehaviour
                             direction = "SouthEast";
                         }
 
-                        if (this.transform.rotation.eulerAngles.y > 337.5 && player01.transform.rotation.eulerAngles.y < 360 || player01.transform.rotation.eulerAngles.y > 0 && player01.transform.rotation.eulerAngles.y < 22.5 || player01.transform.rotation.eulerAngles.y == 0)
+                        if (player01.transform.rotation.eulerAngles.y > 337.5 && player01.transform.rotation.eulerAngles.y <= 380 || player01.transform.rotation.eulerAngles.y >= -22.5 && player01.transform.rotation.eulerAngles.y <= 22.5 || player01.transform.rotation.eulerAngles.y == 0)
                         {
                             direction = "South";
                         }
@@ -213,15 +214,15 @@ public class PlayerCharacters : MonoBehaviour
                     }
 
                     //Fire this character's gun
-                    if ((Input.GetAxis("Trigger") > 0) && (shooting != "S") && (health > 0))
+                    if (((Input.GetAxis("Trigger") > 0) || (Input.GetButton("Shoot")))  && !isShooting && (health > 0))
                             {
-                                shooting = "S";
                                 Fire();
                                 StartCoroutine("ShootRapid");
 
                             }
-                    if ((Input.GetAxis("Trigger") <= 0))
+                    if ((Input.GetAxis("Trigger") <= 0) && !(Input.GetButton("Shoot")))
                     {
+                        isShooting = false;
                         StopCoroutine("ShootRapid");
                         muzzleFlare.SetActive(false);
                     }
@@ -259,6 +260,8 @@ public class PlayerCharacters : MonoBehaviour
 
     void Fire()
     {
+        isShooting = true;
+        shooting = "S";
         StopCoroutine("ShootStopper");
 
         if ((health > 0)  && (formationSpot == 2))

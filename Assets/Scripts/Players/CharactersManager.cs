@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
@@ -56,6 +57,11 @@ public class CharactersManager : MonoBehaviour
                             {
                                 characters[i] = i;
                             }
+
+        for (i = 0; i < charUI.Length; i++)
+        {
+     
+        }
     }
 
 
@@ -76,7 +82,34 @@ public class CharactersManager : MonoBehaviour
         {
             ResetScene();
         }
+
+        //change the colors of the UI elements to dark.
+
+        /*
+         
+        if (characters[0] == 2)
+        {
+            charUI[0].GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+        }
+        */
+
+        for (int i = 0; i <= 2; i++)
+        {
+            Debug.Log(i);
+
+            if (characters[i] == 2)
+            {
+                charUI[i].GetComponent<Image>().color = new Color(1, 1, 1);
+            }
+            else
+            {
+                charUI[i].GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+            }
+        }
+        
     }
+
+
 
     //tells the characters what place in the formation they are in.
     public int ThisCharacterPlace(int formationNum)
