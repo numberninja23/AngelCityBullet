@@ -2,40 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTest : MonoBehaviour
+public class PlayerFormation : MonoBehaviour
 {
     public float playerSpeed;
     public GameObject bluecapsule;
     public Transform blueTarget;
     public GameObject redcapsule;
     public Transform redTarget;
+    public GameObject darwinReticle;
+    public Transform darwinReticleTarget;
 
     void Update()
-    {
-        /*
+    {     
         //Rotates the player
-        if (Input.GetKey(KeyCode.J))
-        {
-            transform.Rotate(Vector3.down, 200 * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.L))
-        {
-            transform.Rotate(Vector3.up, 200 * Time.deltaTime);
-        }
-        */
-
-
-        /*
-        //Rotates the player ver. 2
-        var input = new Vector3(Input.GetAxis("Horizontal2") * -1, 0, Input.GetAxis("Vertical2") * -1);
-        if (input != Vector3.zero)
-        {
-            transform.forward = input;
-        }
-        */
-
-
-        //Rotates the player ver. 2
         var input = new Vector3(Input.GetAxis("Horizontal2") * -1, 0, Input.GetAxis("Vertical2") * -1);
 
             Vector3 newDir = Vector3.RotateTowards(transform.forward, input, 0.45f, 0.0f);
@@ -45,8 +24,8 @@ public class PlayerTest : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(newDir);
 
 
-        //Move bluecapsule
         int layerMask = 1 << 8;
+        //Move bluecapsule
         if (Physics.Linecast(transform.position, bluecapsule.transform.position, layerMask))
         {
                 //print("blocked");
@@ -66,6 +45,17 @@ public class PlayerTest : MonoBehaviour
         else if (redcapsule.transform.position != redTarget.position)
         {
             redcapsule.transform.position = Vector3.MoveTowards(redcapsule.transform.position, redTarget.position, 0.2f);
+        }
+
+        //Move darwinRedicle
+        if (Physics.Linecast(transform.position, darwinReticle.transform.position, layerMask))
+        {
+            //print("blocked");
+            darwinReticle.transform.position = Vector3.MoveTowards(darwinReticle.transform.position, this.transform.position, 1);
+        }
+        else if (darwinReticle.transform.position != darwinReticleTarget.position)
+        {
+            darwinReticle.transform.position = Vector3.MoveTowards(darwinReticle.transform.position, darwinReticleTarget.position, 1);
         }
     }
 }

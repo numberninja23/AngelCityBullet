@@ -8,10 +8,13 @@ public class BulletScript : MonoBehaviour
 
     public GameObject explosion;
 
+    private Rigidbody rb;
 
     void Start()
     {
-        if(bulletType == "bomb")
+        rb = GetComponent<Rigidbody>();
+
+        if (bulletType == "bomb")
         {
             StartCoroutine("DestroySelf");
         }
@@ -20,9 +23,13 @@ public class BulletScript : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //Hit a wall
-        if ((other.gameObject.CompareTag("Wall")) && (bulletType != "bomb"))
+        if ((other.gameObject.CompareTag("Wall")) && (bulletType != "bomb") && (bulletType != "Darwin"))
         {
             Destroy(this.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Wall") && ((bulletType == "bomb") || (bulletType == "Darwin")))
+        {
+            rb.velocity = Vector3.zero;
         }
     }
 

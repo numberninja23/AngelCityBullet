@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletType: 
+  explosion: {fileID: 0}
 --- !u!1001 &3106581056579249792
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23,6 +24,10 @@ PrefabInstance:
     - target: {fileID: 1840457674233558, guid: 5e4ff3fec98ed5640a8b8af459a8edbc, type: 3}
       propertyPath: m_Name
       value: astroBullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 1840457674233558, guid: 5e4ff3fec98ed5640a8b8af459a8edbc, type: 3}
+      propertyPath: m_TagString
+      value: AstroBullet
       objectReference: {fileID: 0}
     - target: {fileID: 212132844981012272, guid: 5e4ff3fec98ed5640a8b8af459a8edbc,
         type: 3}

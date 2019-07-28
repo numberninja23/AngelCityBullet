@@ -6,6 +6,11 @@ TextureImporter:
     21300002: CharacterUI 1_1
     21300004: CharacterUI 1_2
     21300006: CharacterUI 1_3
+    21300008: CharacterUI_0
+    21300010: CharacterUI_1
+    21300012: CharacterUI_2
+    21300014: CharacterUI_3
+    21300016: CharacterUI_4
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -88,7 +93,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CharacterUI 1_0
+      name: CharacterUI_0
       rect:
         serializedVersion: 2
         x: 0
@@ -96,73 +101,93 @@ TextureImporter:
         width: 108
         height: 108
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 175468f22ad918f43b8b9f02b2507830
+      spriteID: 38d89e7b551ae634a992cfa7d0110151
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CharacterUI 1_1
+      name: CharacterUI_1
       rect:
         serializedVersion: 2
-        x: 108
+        x: 109
         y: 2
         width: 108
         height: 108
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c80fa0f16d085784c84adf6715e77e1d
+      spriteID: d1a1f14c580ceab408b6d1e9a380fcec
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CharacterUI 1_2
+      name: CharacterUI_2
       rect:
         serializedVersion: 2
-        x: 217
+        x: 218
         y: 2
         width: 108
         height: 108
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71c0367bcb682e34cb66df45851cf3e7
+      spriteID: e83dbd68ab6d9324ab8891ac1a0521c3
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CharacterUI 1_3
+      name: CharacterUI_3
       rect:
         serializedVersion: 2
-        x: 326
+        x: 327
         y: 2
         width: 108
         height: 108
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 716fd98c0e37f7f4bbd0ace705e6aa33
+      spriteID: 84518691525e5fd479d7cdc7191f5d9d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterUI_4
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 2
+        width: 108
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72d667369c047be4198b0fa65afe6d0b
       vertices: []
       indices: 
       edges: []

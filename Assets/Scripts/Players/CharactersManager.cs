@@ -14,8 +14,9 @@ public class CharactersManager : MonoBehaviour
 
     private bool invincibility = false;
 
-    public GameObject[] charUI = new GameObject[3];
+    public GameObject darwinReticle;
 
+    public GameObject[] charUI = new GameObject[3];
     public Transform[] charUIPos = new Transform[5];
 
 
@@ -84,19 +85,8 @@ public class CharactersManager : MonoBehaviour
         }
 
         //change the colors of the UI elements to dark.
-
-        /*
-         
-        if (characters[0] == 2)
-        {
-            charUI[0].GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
-        }
-        */
-
         for (int i = 0; i <= 2; i++)
         {
-            Debug.Log(i);
-
             if (characters[i] == 2)
             {
                 charUI[i].GetComponent<Image>().color = new Color(1, 1, 1);
@@ -105,8 +95,16 @@ public class CharactersManager : MonoBehaviour
             {
                 charUI[i].GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             }
+        }       
+
+        if(characters[0] == 2)
+        {
+            darwinReticle.GetComponent<Renderer>().enabled = true;
         }
-        
+        else
+        {
+            darwinReticle.GetComponent<Renderer>().enabled = false;
+        }
     }
 
 

@@ -21,11 +21,12 @@ public class PlayerCharacters : MonoBehaviour
 
     Vector3 lastPos;
 
+    bool DEVCHEAT = false;
     bool isHurt = false;
     bool invincible = false;
     bool isShooting = false;
 
-    // Speed in units per sec.
+    // Speed of character, speed of bullets, player's health, how far bullets travel, and how long between firing bullets.
     public float speed;
     public float shootSpeed;
     public float health = 10;
@@ -233,8 +234,21 @@ public class PlayerCharacters : MonoBehaviour
                         print(this.transform.rotation.eulerAngles.z);
                     }
 
-                    //Change the formation type.
-                    if (Input.GetKeyDown(KeyCode.O))
+                    if (Input.GetKeyDown(KeyCode.I))
+                    {
+                        if (!DEVCHEAT)
+                        {
+                            DEVCHEAT = true;
+                        }
+                        else
+                        {
+                            DEVCHEAT = false;
+                        }
+                Debug.Log(characterName + DEVCHEAT);
+            }
+
+            //Change the formation type.
+            if (Input.GetKeyDown(KeyCode.O))
                     {
                         if (formationType == 0)
                         {
@@ -275,6 +289,15 @@ public class PlayerCharacters : MonoBehaviour
             {
                 muzzleFlare.SetActive(true);
                 bullet.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, player01.transform.eulerAngles.y + 90, this.transform.eulerAngles.z);
+            }
+
+            if (this.characterName == "Darwin")
+            {
+                bullet.transform.parent = player01.transform;
+            }
+            else
+            {
+                bullet.transform.parent = this.transform;
             }
 
             // Add velocity to the bullet this character just created.
@@ -338,9 +361,11 @@ public class PlayerCharacters : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         //Get hurt by an enemy.
-        if (other.gameObject.CompareTag("Enemy") && (formationSpot == 2) && (invincible == false) && (isHurt == false))
+        if (other.gameObject.CompareTag("Enemy") && (formationSpot == 2) && (invincible == false) && (isHurt == false) && (DEVCHEAT == false))
         {
             /*
+            if (health > 1)
+            {
                 //stop moving this character.
                 isHurt = true;
 
@@ -349,7 +374,7 @@ public class PlayerCharacters : MonoBehaviour
                    damageParticle,
                    this.transform.position,
                    this.transform.rotation);
-                  hurtParticle.transform.parent = this.transform;
+                hurtParticle.transform.parent = this.transform;
 
                 //knockback
                 var magnitude = 100;
@@ -357,13 +382,15 @@ public class PlayerCharacters : MonoBehaviour
                 var force = transform.position - other.transform.position;
                 force.Normalize();
                 rb.AddForce(-force * magnitude);
-                StartCoroutine(StopBeingHurt());
+            }
+            else
             */
-            isHurt = true;
-            CharactersManager.Instance.CharacterDie(formationNum);
-            health = 0;
-            blinkTime = 1;
-            StartCoroutine("Blink");
+                isHurt = true;
+                CharactersManager.Instance.CharacterDie(formationNum);
+                health = 0;
+                blinkTime = 1;
+                StartCoroutine("Blink");
+            
         }
 
         if (other.gameObject.CompareTag("HPPad"))

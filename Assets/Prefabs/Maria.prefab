@@ -186,7 +186,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 90f08e205bfdedb429b250a78f422796, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -264,8 +264,8 @@ MonoBehaviour:
   speed: 5
   shootSpeed: -30
   health: 2
-  despawnTime: 0.5
-  shootDelayTime: 0.14
+  despawnTime: 0.4
+  shootDelayTime: 0.2
   formationSpot: 2
   formationType: 0
   formationNum: 2
